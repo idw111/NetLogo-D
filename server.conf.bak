@@ -1,0 +1,28 @@
+DBINFO 0 jdbc:mysql://localhost:3306/netlogo
+DBINFO 1 root
+DBINFO 2 arachne
+DBINFO 3 anonymity_task
+DBINFO 4 anonymity_data
+
+FILENAME anonymity_20121112.nlogo
+
+PARAMETERS initial_uncertainty_level float
+PARAMETERS initial_adjusting_coeff float
+PARAMETERS span_of_control int
+PARAMETERS number_of_depth int
+
+CLIENTREPETITION 1000
+
+REPETITION 50
+
+REPORTERS final_clusters String
+REPORTERS hhi float
+REPORTERS population int
+REPORTERS number_of_isolations int
+REPORTERS number_of_clusters int
+REPORTERS number_of_largest_cluster int
+REPORTERS number_of_second_largest_cluster int
+REPORTERS misaligned_with_top float
+REPORTERS misaligned_with_super float
+REPORTERS misaligned_with_top_and_super float
+REPORTERS misaligned_with_top_or_super float
