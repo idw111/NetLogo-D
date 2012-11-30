@@ -33,22 +33,14 @@ public class Context {
 					Context.ip = tokens[1];
 					System.out.println(Context.ip);
 					break;
-				case "FILENAME":
-					Context.filename = tokens[1];
-					System.out.println(Context.filename);
-					break;
 				}
 			}
 			file.close();
 		}
 		catch (IOException ex) {
 			ex.printStackTrace();
-		}	
+		}
 		
 		return Context.ip;
 	}
-	
-	public static void write(String ip, String file) {
-		
-	}	
 }

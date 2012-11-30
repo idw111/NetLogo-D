@@ -4,7 +4,9 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import arachne.simulation.UICommand;
@@ -13,6 +15,7 @@ import arachne.simulation.UICommands;
 public class ConnectionsView extends Composite {
 	static Tree connections = null;
 	static TreeItem root = null;
+	static Label console = null;
 	
 	public ConnectionsView(Composite c) {
 		super(c, SWT.NONE);
@@ -20,6 +23,15 @@ public class ConnectionsView extends Composite {
 	    layout.numColumns = 6;
 	    layout.makeColumnsEqualWidth = true;
 	    this.setLayout(layout);
+	    
+	    createTree();
+	    createConsole();		
+	}
+	
+	private void createTree() {
+	    GridLayout layout = new GridLayout();
+	    layout.numColumns = 6;
+	    layout.makeColumnsEqualWidth = true;
 	    
 	    Group group = new Group(this, SWT.NONE);
 	    group.setLayout(layout);
@@ -32,13 +44,46 @@ public class ConnectionsView extends Composite {
 		root.setText("Clients");
 	}
 	
+	private void createConsole() {
+	    GridLayout layout = new GridLayout();
+	    layout.numColumns = 6;
+	    layout.makeColumnsEqualWidth = true;
+		
+	    console = new Label(this, SWT.NONE);
+	    console.setLayoutData(new GridData(GridData.FILL, GridData.VERTICAL_ALIGN_BEGINNING, true, false, 6, 1));
+	    console.setAlignment(SWT.RIGHT);
+	    console.setText("NetLogo-D enables NetLogo users to conduct simulations in a distributed manner!");
+	}
+	
 	public static void updateView() {
 		while (UICommands.size("CONNECTIONS") > 0) {
-			ConnectionsView.updateCommand();
+			ConnectionsView.updateTreeCommand();
+		}
+		while (UICommands.size("CONSOLE") > 0) {
+			ConnectionsView.updateConsoleCommand();
 		}
 	}
 	
-	public static void updateCommand() {
+	public static void updateConsoleCommand() {
+		UICommand task = UICommands.pop("CONSOLE");
+		
+		if (task == null) return;
+		
+		String message = (String)task.data;
+		
+		switch (task.command) {
+		case "SET":
+			console.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_BLACK));
+			console.setText(message);
+			break;
+		case "WARN":
+			console.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_RED));
+			console.setText(message);
+			break;
+		}
+	}
+	
+	public static void updateTreeCommand() {
 		UICommand task = UICommands.pop("CONNECTIONS");
 		
 		if (task == null) return;
@@ -47,13 +92,13 @@ public class ConnectionsView extends Composite {
 		
 		switch (task.command) {
 		case "ADD":
-			ConnectionsView.addClient(client);
+			addClient(client);
 			break;
 		case "REMOVE":
-			ConnectionsView.removeClient(client);
+			removeClient(client);
 			break;
 		case "REFRESH":
-			ConnectionsView.refreshClient(client);
+			refreshClient(client);
 			break;
 		}
 	}

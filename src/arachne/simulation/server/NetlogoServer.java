@@ -55,6 +55,14 @@ public class NetlogoServer implements Runnable {
 	public void sendMessage(ServerSocketThread thread, String message) {
 		thread.send(message);
 	}
+	
+	public static void echo(String message) {
+		UICommands.add("CONSOLE", "SET", message);
+	}
+	
+	public static void warn(String message) {
+		UICommands.add("CONSOLE", "WARN", message);
+	}
 
 	@Override
 	public void run() {

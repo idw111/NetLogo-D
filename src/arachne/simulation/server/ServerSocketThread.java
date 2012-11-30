@@ -80,6 +80,7 @@ public class ServerSocketThread extends Thread {
 			ex.printStackTrace();
 			System.out.println(name + " removed!");
 			server.removeClient(this);
+			NetlogoServer.warn(name + " was disconnected...");
 		}
 		finally {
 			try {
@@ -242,6 +243,7 @@ public class ServerSocketThread extends Thread {
 			ex.printStackTrace();
 			task_id = 0;
 			values.clear();
+			NetlogoServer.warn("Problems occurred while retrieving task from MySQL!");
 		}
 		
 		return values;
@@ -254,6 +256,7 @@ public class ServerSocketThread extends Thread {
 		}
 		catch (SQLException ex) {
 			ex.printStackTrace();
+			NetlogoServer.warn("Problems occurred while updating task table!");
 		}
 		count++;
 	}
@@ -265,6 +268,7 @@ public class ServerSocketThread extends Thread {
 		}
 		catch (SQLException ex) {
 			ex.printStackTrace();
+			NetlogoServer.warn("Problems occurred while updating task table!");
 		}
 		System.out.println("updateTaskDone: " + sql);
 	}
@@ -275,6 +279,7 @@ public class ServerSocketThread extends Thread {
 		}
 		catch (SQLException ex) {
 			ex.printStackTrace();
+			NetlogoServer.warn("Problems occurred while inserting simulation results into data table!");
 		}
 	}
 	

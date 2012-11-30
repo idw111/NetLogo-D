@@ -285,7 +285,7 @@ public class SettingsView extends Composite {
 	    
 	    Label l3 = new Label(group, SWT.NONE);
 	    l3.setLayoutData(new GridData(GridData.FILL, GridData.VERTICAL_ALIGN_BEGINNING, true, false, 1, 1));
-	    
+	    	    
 	    Button insert = new Button(group, SWT.PUSH);
 	    insert.setLayoutData(new GridData(GridData.FILL, GridData.VERTICAL_ALIGN_END, true, false, 1, 1));
 	    insert.setText("Insert");
