@@ -39,8 +39,8 @@ NetLogo-D assumes that your NetLogo simulation has conventional 'setup' and 'go'
 	* Reporters are output values (or results) of your simulation
 	
 ## Screenshots
-[NetLogo-D server](/screenshot/server.png)
-[NetLogo-D client](/screenshot/client.png)
+[NetLogo-D server](./screenshot/server.png)
+[NetLogo-D client](./screenshot/client.png)
 
 
 	
