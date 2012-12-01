@@ -21,26 +21,29 @@ NetLogo-D assumes that your NetLogo simulation has conventional 'setup' and 'go'
 	* On receiving the simulation results, NetLogo-D server will store them in MySQL data-table 
 
 ## Settings
-* **MySQL**
-	* **MySQL connection** This connection string specifies the server address, port and MySQL database name (ex: jdbc:mysql://localhost:3306/netlogo)
-	* **MySQL ID** MySQL login ID
-	* **MySQL password** MySQL login password
-	* **MySQL task table** In NetLogo-D, a task is a set of parameter values, and the values are stored in a task table as a record
-	* **MySQL data table** In NetLogo-D, data is a set of simulation results, and the values are stored in a data table as a record
-* **Etc**
-	* **NetLogo file** Specify the NetLogo file that you want run
-	* **Simulation iteration** Iteration specifies how many times the 'go' is performed in a simulation
-	* **Simulation repetition** Repetition specifies how many times a simulations is performed
-* **Parameters**
-	* You can add or remove parameters
-	* Parameters are input values of your simulation
-* **Reporters**
-	* You can add or remove reporters
-	* Reporters are output values (or results) of your simulation
+
+### MySQL
+* **MySQL connection** This connection string specifies the server address, port and MySQL database name (ex: jdbc:mysql://localhost:3306/netlogo)
+* **MySQL ID** MySQL login ID
+* **MySQL password** MySQL login password
+* **MySQL task table** In NetLogo-D, a task is a set of parameter values, and the values are stored in a task table as a record
+* **MySQL data table** In NetLogo-D, data is a set of simulation results, and the values are stored in a data table as a record
+
+### Etc
+* **NetLogo file** Specify the NetLogo file that you want run
+* **Simulation iteration** Iteration specifies how many times the 'go' is performed in a simulation
+* **Simulation repetition** Repetition specifies how many times a simulations is performed
+
+### Parameters
+* You can add or remove parameters
+* Parameters are input values of your simulation
+
+### Reporters
+* You can add or remove reporters
+* Reporters are output values (or results) of your simulation
 	
 ## Screenshots
-![NetLogo-D server](https://raw.github.com/idw111/NetLogo-D/master/screenshot/server.png)
-![NetLogo-D client](https://raw.github.com/idw111/NetLogo-D/master/screenshot/client.png)
+![NetLogo-D client and server](https://raw.github.com/idw111/NetLogo-D/master/screenshot/clent+server.png)
 
 
 	
