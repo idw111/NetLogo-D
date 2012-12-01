@@ -112,6 +112,10 @@ public class SettingsView extends Composite {
 				ServerEnvironment.read();
 				SettingsView.fill();
 				
+				ServerEnvironment.createDatabase();
+				ServerEnvironment.createTaskTable();
+				ServerEnvironment.createDataTable();
+				
 				button.setEnabled(true);
 			}
 		});
@@ -126,11 +130,9 @@ public class SettingsView extends Composite {
 	    netlogo_iteration.setText(Integer.toString(ServerEnvironment.iteration));
 	    netlogo_repetition.setText(Integer.toString(ServerEnvironment.repetition));
 
-	    dbinfo[0].setText(ServerEnvironment.DBINFO.get(0));
-	    dbinfo[1].setText(ServerEnvironment.DBINFO.get(1));
-	    dbinfo[2].setText(ServerEnvironment.DBINFO.get(2));
-	    dbinfo[3].setText(ServerEnvironment.DBINFO.get(3));
-	    dbinfo[4].setText(ServerEnvironment.DBINFO.get(4));
+	    for (int i = 0; i < dbinfo.length && i < ServerEnvironment.DBINFO.size(); i++) {
+	    	dbinfo[i].setText(ServerEnvironment.DBINFO.get(i));
+	    }
 	    
 	    params.removeAll();
 	    for (int i = 0; i < ServerEnvironment.PARAMETERS.size(); i++) {
@@ -206,37 +208,37 @@ public class SettingsView extends Composite {
 	    group.setLayout(layout);
 	    group.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, false, 3, 1));
 	    
-	    Label l0 = new Label(group, SWT.NONE);
-	    l0.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING, GridData.VERTICAL_ALIGN_BEGINNING, false, false, 1, 1));
-	    l0.setText("MySQL connection");
+	    Label l1 = new Label(group, SWT.NONE);
+	    l1.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING, GridData.VERTICAL_ALIGN_BEGINNING, false, false, 1, 1));
+	    l1.setText("MySQL connection");
 	    
 	    dbinfo[0] = new Text(group, SWT.SINGLE|SWT.BORDER);
 	    dbinfo[0].setLayoutData(new GridData(GridData.FILL, GridData.VERTICAL_ALIGN_BEGINNING, true, false, 2, 1));
 	    
-	    Label l1 = new Label(group, SWT.NONE);
-	    l1.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING, GridData.VERTICAL_ALIGN_BEGINNING, false, false, 1, 1));
-	    l1.setText("MySQL ID");
+	    Label l2 = new Label(group, SWT.NONE);
+	    l2.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING, GridData.VERTICAL_ALIGN_BEGINNING, false, false, 1, 1));
+	    l2.setText("MySQL ID");
 
 	    dbinfo[1] = new Text(group, SWT.SINGLE|SWT.BORDER);
 	    dbinfo[1].setLayoutData(new GridData(GridData.FILL, GridData.VERTICAL_ALIGN_BEGINNING, true, false, 2, 1));
 	    
-	    Label l2 = new Label(group, SWT.NONE);
-	    l2.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING, GridData.VERTICAL_ALIGN_BEGINNING, false, false, 1, 1));
-	    l2.setText("MySQL password");
+	    Label l3 = new Label(group, SWT.NONE);
+	    l3.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING, GridData.VERTICAL_ALIGN_BEGINNING, false, false, 1, 1));
+	    l3.setText("MySQL password");
 
 	    dbinfo[2] = new Text(group, SWT.SINGLE|SWT.BORDER);
 	    dbinfo[2].setLayoutData(new GridData(GridData.FILL, GridData.VERTICAL_ALIGN_BEGINNING, true, false, 2, 1));
 
-	    Label l3 = new Label(group, SWT.NONE);
-	    l3.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING, GridData.VERTICAL_ALIGN_BEGINNING, false, false, 1, 1));
-	    l3.setText("MySQL task table");
+	    Label l4 = new Label(group, SWT.NONE);
+	    l4.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING, GridData.VERTICAL_ALIGN_BEGINNING, false, false, 1, 1));
+	    l4.setText("MySQL task table");
 
 	    dbinfo[3] = new Text(group, SWT.SINGLE|SWT.BORDER);
 	    dbinfo[3].setLayoutData(new GridData(GridData.FILL, GridData.VERTICAL_ALIGN_BEGINNING, true, false, 2, 1));
 
-	    Label l4 = new Label(group, SWT.NONE);
-	    l4.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING, GridData.VERTICAL_ALIGN_BEGINNING, false, false, 1, 1));
-	    l4.setText("MySQL data table");
+	    Label l5 = new Label(group, SWT.NONE);
+	    l5.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING, GridData.VERTICAL_ALIGN_BEGINNING, false, false, 1, 1));
+	    l5.setText("MySQL data table");
 
 	    dbinfo[4] = new Text(group, SWT.SINGLE|SWT.BORDER);
 	    dbinfo[4].setLayoutData(new GridData(GridData.FILL, GridData.VERTICAL_ALIGN_BEGINNING, true, false, 2, 1));		

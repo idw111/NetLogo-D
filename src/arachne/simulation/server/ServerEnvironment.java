@@ -69,6 +69,13 @@ public class ServerEnvironment {
 		R_TYPES.clear();
 	}
 	
+	public static void createDatabase() {
+		String[] connection = DBINFO.get(0).split("/");
+		String database = connection[connection.length - 1];
+		
+		// check if the database exists, and create it if it doesn't exist 
+	}
+	
 	public static void createDataTable() {
 		String[] tokens = ServerEnvironment.DBINFO.get(0).split("/");
 		String dbname = tokens[tokens.length - 1];
