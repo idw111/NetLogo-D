@@ -1,6 +1,7 @@
 package arachne.simulation.server;
 
 import java.io.*;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -13,6 +14,14 @@ public class ServerEnvironment {
 	public static ArrayList<String> P_TYPES = new ArrayList<String>();
 	public static ArrayList<String> REPORTERS = new ArrayList<String>();
 	public static ArrayList<String> R_TYPES = new ArrayList<String>();
+	
+	public static final int ADDRESS = 0;
+	public static final int DATABASE = 1;
+	public static final int ID = 2;
+	public static final int PW = 3;
+	public static final int TASK_TABLE = 4;
+	public static final int DATA_TABLE = 5;
+	
 	
 	public ServerEnvironment() {
 	}
@@ -70,19 +79,47 @@ public class ServerEnvironment {
 	}
 	
 	public static void createDatabase() {
-		String[] connection = DBINFO.get(0).split("/");
-		String database = connection[connection.length - 1];
+		String dbname = ServerEnvironment.DBINFO.get(ServerEnvironment.DATABASE);
+
+		Mysql db = new Mysql();
+		db.connect(ServerEnvironment.DBINFO.get(ServerEnvironment.ADDRESS), ServerEnvironment.DBINFO.get(ServerEnvironment.ID), ServerEnvironment.DBINFO.get(ServerEnvironment.PW));
 		
 		// check if the database exists, and create it if it doesn't exist 
+		String sql = "SHOW DATABASES";
+		try {
+			ResultSet rs = db.query(sql);
+			while (rs.next()) {
+				if (dbname.equals(rs.getString("Database"))) {
+					System.out.println();
+					sql = "USE " + dbname;
+					db.execute(sql);
+					return;
+				}
+			}
+		}
+		catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		
+		sql = "CREATE DATABASE " + dbname;
+		try {
+			db.execute(sql);
+			sql = "USE " + dbname;
+			db.execute(sql);
+		}
+		catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		
+		db.close();
 	}
 	
 	public static void createDataTable() {
-		String[] tokens = ServerEnvironment.DBINFO.get(0).split("/");
-		String dbname = tokens[tokens.length - 1];
-		String table = ServerEnvironment.DBINFO.get(4); // data_table
+		String dbname = ServerEnvironment.DBINFO.get(ServerEnvironment.DATABASE);
+		String table = ServerEnvironment.DBINFO.get(ServerEnvironment.DATA_TABLE); // data_table
 		
 		Mysql db = new Mysql();
-		db.connect(ServerEnvironment.DBINFO.get(0), ServerEnvironment.DBINFO.get(1), ServerEnvironment.DBINFO.get(2));
+		db.connect(ServerEnvironment.DBINFO.get(ServerEnvironment.ADDRESS) + "/" + ServerEnvironment.DBINFO.get(ServerEnvironment.DATABASE), ServerEnvironment.DBINFO.get(ServerEnvironment.ID), ServerEnvironment.DBINFO.get(ServerEnvironment.PW));
 
 		String vars = "num INT(11) NOT NULL AUTO_INCREMENT, ";
 		vars += "task_id INT(10) UNSIGNED NOT NULL, ";
@@ -116,12 +153,11 @@ public class ServerEnvironment {
 	}
 	
 	public static void createTaskTable() {
-		String[] tokens = ServerEnvironment.DBINFO.get(0).split("/");
-		String dbname = tokens[tokens.length - 1];
-		String table = ServerEnvironment.DBINFO.get(3); // task_table
+		String dbname = ServerEnvironment.DBINFO.get(ServerEnvironment.DATABASE);
+		String table = ServerEnvironment.DBINFO.get(ServerEnvironment.TASK_TABLE); // task_table
 		
 		Mysql db = new Mysql();
-		db.connect(ServerEnvironment.DBINFO.get(0), ServerEnvironment.DBINFO.get(1), ServerEnvironment.DBINFO.get(2));
+		db.connect(ServerEnvironment.DBINFO.get(ServerEnvironment.ADDRESS) + "/" + ServerEnvironment.DBINFO.get(ServerEnvironment.DATABASE), ServerEnvironment.DBINFO.get(ServerEnvironment.ID), ServerEnvironment.DBINFO.get(ServerEnvironment.PW));
 		
 		String vars = "task_id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, ";
 		vars += "task_assigned INT(11) NOT NULL DEFAULT 0, ";

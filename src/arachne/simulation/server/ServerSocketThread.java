@@ -24,7 +24,8 @@ public class ServerSocketThread extends Thread {
 	
 	public ServerSocketThread(NetlogoServer ns, Socket s) {
 		db = new Mysql();
-		db.connect(ServerEnvironment.DBINFO.get(0), ServerEnvironment.DBINFO.get(1), ServerEnvironment.DBINFO.get(2));
+		db.connect(ServerEnvironment.DBINFO.get(ServerEnvironment.ADDRESS) + "/" + ServerEnvironment.DBINFO.get(ServerEnvironment.DATABASE), ServerEnvironment.DBINFO.get(ServerEnvironment.ID), ServerEnvironment.DBINFO.get(ServerEnvironment.PW));
+
 		socket = s;
 		server = ns;
 		thread_name = getName();
@@ -117,8 +118,8 @@ public class ServerSocketThread extends Thread {
 	}
 	
 	public boolean sendDatabaseInformation(String[] tokens) {
-		send("DBINFO 0 " + ServerEnvironment.DBINFO.get(3));
-		send("DBINFO 1 " + ServerEnvironment.DBINFO.get(4));
+		send("DBINFO 0 " + ServerEnvironment.DBINFO.get(ServerEnvironment.TASK_TABLE));
+		send("DBINFO 1 " + ServerEnvironment.DBINFO.get(ServerEnvironment.DATA_TABLE));
 		send("DBINFO EOL EOL");
 		return true;
 	}
@@ -216,7 +217,7 @@ public class ServerSocketThread extends Thread {
 	public ArrayList<String> retrieveTask() {
 		int task_id = 0;
 		ArrayList<String> values = new ArrayList<String>();
-		String sql = String.format("SELECT * FROM %s WHERE task_assigned<%d LIMIT 0, 1", ServerEnvironment.DBINFO.get(3), ServerEnvironment.repetition);
+		String sql = String.format("SELECT * FROM %s WHERE task_assigned<%d LIMIT 0, 1", ServerEnvironment.DBINFO.get(ServerEnvironment.TASK_TABLE), ServerEnvironment.repetition);
 		try {
 			ResultSet rs = db.query(sql);
 			if (rs.next()) {
@@ -250,7 +251,7 @@ public class ServerSocketThread extends Thread {
 	}
 	
 	public void updateTaskAssigned(int task_id) {
-		String sql = String.format("UPDATE %s SET task_assigned=task_assigned+1 WHERE task_id=%d", ServerEnvironment.DBINFO.get(3), task_id);
+		String sql = String.format("UPDATE %s SET task_assigned=task_assigned+1 WHERE task_id=%d", ServerEnvironment.DBINFO.get(ServerEnvironment.TASK_TABLE), task_id);
 		try {
 			db.execute(sql);
 		}
@@ -262,7 +263,7 @@ public class ServerSocketThread extends Thread {
 	}
 	
 	public void updateTaskDone(int task_id) {
-		String sql = String.format("UPDATE %s SET task_done=task_done+1 WHERE task_id=%d", ServerEnvironment.DBINFO.get(3), task_id);
+		String sql = String.format("UPDATE %s SET task_done=task_done+1 WHERE task_id=%d", ServerEnvironment.DBINFO.get(ServerEnvironment.TASK_TABLE), task_id);
 		try {
 			db.execute(sql);
 		}
