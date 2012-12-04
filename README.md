@@ -2,9 +2,9 @@
 NetLogo-D enables NetLogo users to conduct simulations in a distributed manner.
 
 ## Prerequisite
-You should have MySQL running on your server.
-NetLogo-D assumes that your NetLogo simulation has conventional 'setup' and 'go' procedures.
-You should fill your task-table **by yourself**.
+* You should have MySQL running on your server.
+* NetLogo-D assumes that your NetLogo simulation has conventional 'setup' and 'go' procedures.
+* You should fill your task-table **by yourself**.
 
 ## How to use NetLogo-D
 
