@@ -1,0 +1,10 @@
+*.class
+.classpath
+
+# Package Files #
+*.war
+*.ear
+/target
+
+# NetLogo Files #
+.nlogo
